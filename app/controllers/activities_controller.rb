@@ -11,7 +11,8 @@ class ActivitiesController < ApplicationController
         redirect_to user_path(current_user)
       end
     else
-      redirect_to user_path(current_user)
+      @user = current_user
+      redirect_to user_path(current_user), :flash => { :error => @activity.errors.full_messages.join(", ") }
     end
   end
 

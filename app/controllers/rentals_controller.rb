@@ -16,7 +16,7 @@ class RentalsController < ApplicationController
     if @rental.save
       redirect_to user_path(current_user)
     else
-      redirect_to root_path
+      redirect_to user_path(current_user), :flash => { :error => @rental.errors.full_messages.join(", ") }
     end
   end
 

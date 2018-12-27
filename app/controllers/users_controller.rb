@@ -27,15 +27,17 @@ class UsersController < ApplicationController
     if user_params[:agree_to_terms] == "true"
        @user = User.new(agree_to_terms: "true", agree_to_privacy: "true", name: user_params[:name], email: user_params[:email], password: user_params[:password], password_confirmation: user_params[:password_confirmation])
        if @user.save
-          'terms_conditions'
          log_in @user
-         flash[:success] = "Welcome to the Sample App!"
+         # flash[:success] = "Welcome to the Sample App!"
          redirect_to @user  #redirect_to user_url(@user)
        else
-         render 'new'
+         # flash.now[:error] = @user.errors.full_messages.join(", ")
+         redirect_to signup_path, :flash => { :error => @user.errors.full_messages.join(", ") }
        end
      else
-       render 'new'
+       # flash.now[:error] = "Please agree to the terms and conditions"
+       # render_to 'new'
+       redirect_to signup_path, :flash => { :error => "Please agree to the terms and conditions" }
      end
    end
    #forgot to add log in user before that s why it didnt work
