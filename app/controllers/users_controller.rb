@@ -57,6 +57,7 @@ class UsersController < ApplicationController
      flash[:success] = "Profile updated"
      redirect_to @user
    else
+     flash.now[:error] = @user.errors.full_messages.join(", ") + (@user.errors.full_messages.length == 0 ? "please attach an image" : ", please attach an image")
      render 'edit'
    end
  end
