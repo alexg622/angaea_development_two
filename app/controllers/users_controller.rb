@@ -24,12 +24,16 @@ class UsersController < ApplicationController
  end
 
  def create
-     @user = User.new(image: user_params[:image], name: user_params[:name], email: user_params[:email], password: user_params[:password], password_confirmation: user_params[:password_confirmation])
-     if @user.save
-        'terms_conditions'
-       log_in @user
-       flash[:success] = "Welcome to the Sample App!"
-       redirect_to @user  #redirect_to user_url(@user)
+    if user_params[:agree_to_terms] == "true"
+       @user = User.new(agree_to_terms: "true", agree_to_privacy: "true", name: user_params[:name], email: user_params[:email], password: user_params[:password], password_confirmation: user_params[:password_confirmation])
+       if @user.save
+          'terms_conditions'
+         log_in @user
+         flash[:success] = "Welcome to the Sample App!"
+         redirect_to @user  #redirect_to user_url(@user)
+       else
+         render 'new'
+       end
      else
        render 'new'
      end
@@ -47,7 +51,7 @@ class UsersController < ApplicationController
      @user.image.attach(user_params[:image])
    end
 
-   if @user.image.attached? && @user.update_attributes(name: user_params[:name], email: user_params[:email], profession: user_params[:profession], skills: user_params[:skills]) && @user.authenticate(user_params[:password])
+   if @user.image.attached? && @user.update_attributes(about: user_params[:about], name: user_params[:name], email: user_params[:email], profession: user_params[:profession], skills: user_params[:skills]) && @user.authenticate(user_params[:password])
      flash[:success] = "Profile updated"
      redirect_to @user
    else
@@ -70,7 +74,7 @@ end
   private
 
     def user_params
-      params.require(:user).permit(:image, :name, :profession, :skills, :email, :password, :password_confirmation)
+      params.require(:user).permit(:agree_to_terms, :image, :about, :name, :profession, :skills, :email, :password, :password_confirmation)
     end
         # Confirms a logged-in user.
    def logged_in_user

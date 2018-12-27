@@ -6,6 +6,7 @@ class CreateUsers < ActiveRecord::Migration[5.2]
       t.string :password
       t.string :profession
       t.text :skills
+      t.text :about 
       t.boolean :agree_to_terms
       t.boolean :agree_to_privacy
 

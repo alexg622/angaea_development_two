@@ -8,7 +8,7 @@ Rails.application.routes.draw do
 
   resources :rentals, only: [:show] do
     resources :rental_tickets, only: [:new, :create, :destroy]
-  end 
+  end
   # resources :activities
   # root 'static_pages#activities'  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   get '/activities', to: 'static_pages#activities'
@@ -24,6 +24,8 @@ Rails.application.routes.draw do
   post '/signup',  to: 'users#create'
   get '/about', to: 'static_pages#about'
   get '/contact', to: 'static_pages#contact'
+  get '/showTermsConditions', to: 'static_pages#show_terms_and_conditions'
+  get '/showPrivacyAgreement', to: 'static_pages#show_privacy_agreement'
   post '/termsConditions', to: "static_pages#create_terms_and_conditions"
   post '/privacyConditions', to: "static_pages#create_privacy_conditions"
   get '/termsConditions', to: 'static_pages#terms_and_conditions'

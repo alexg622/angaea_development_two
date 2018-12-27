@@ -13,6 +13,12 @@ class StaticPagesController < ApplicationController
   def terms_and_conditions
   end
 
+  def show_terms_and_conditions
+  end
+
+  def show_privacy_agreement
+  end
+
   def privacy_conditions
   end
 
@@ -21,7 +27,7 @@ class StaticPagesController < ApplicationController
     if params[:user]
       if user_params[:agree_to_terms] == "true"
         p "in the true statement"
-        @user.update_attributes!(agree_to_terms: true) || @user.agree_to_terms == true
+        @user.update_attributes(agree_to_terms: true) || @user.agree_to_terms == true
         return redirect_to "/privacyConditions"
       end
     else
@@ -47,7 +53,7 @@ class StaticPagesController < ApplicationController
 
   def contact
   end
-  
+
   private
   def user_params
     if params[:user]
