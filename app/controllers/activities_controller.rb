@@ -4,7 +4,7 @@ class ActivitiesController < ApplicationController
   def create
     @activity = Activity.new(image: activity_params[:image], capacity: activity_params[:capacity], contact_number: activity_params[:contact_number], contact_email: activity_params[:contact_email], activity_name: activity_params[:activity_name], content: activity_params[:content], additional_info: activity_params[:additional_info], user_id: current_user.id, start_date: activity_params[:start_date], end_date: activity_params[:end_date], addressLN1: activity_params[:addressLN1], addressLN2: activity_params[:addressLN2], city: activity_params[:city], state: activity_params[:state], cost: activity_params[:cost], zip: activity_params[:zip])
     @category = Category.find_by(category_name: activity_params[:category])
-    if @activity.save!
+    if @activity.save
       # @activity.images.attach(activity_params[:images])
       @tag = Tag.new(activity_id: @activity.id, category_id: @category.id)
       if @tag.save
