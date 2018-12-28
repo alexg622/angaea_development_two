@@ -1,4 +1,6 @@
 class RentalTicketsController < ApplicationController
+  before_action :logged_in_user
+
   def new
     @rental = Rental.find(params[:rental_id])
     @rental_ticket = RentalTicket.new

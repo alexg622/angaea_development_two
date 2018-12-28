@@ -1,4 +1,6 @@
 class ActivityTicketsController < ApplicationController
+  before_action :logged_in_user 
+
   def new
     @activity = Activity.find(params[:activity_id])
     @activity_ticket = ActivityTicket.new
